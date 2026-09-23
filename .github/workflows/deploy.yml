@@ -28,7 +28,10 @@ jobs:
           bun-version: latest
       - run: bun install
       - run: bun run build
-      # SPA fallback so client-side routes don't 404 on GitHub Pages
+      # 2026-09-23 (Em): magazine.forthem.com now serves the static Hybrid All-Issue LP in hybrid/.
+      # The Lovable pre-sell still builds (keeps /lovable-uploads/ live for other pages) but its
+      # index.html is overwritten. ROLLBACK to the pre-sell: delete the two hybrid lines below.
+      - run: cp -R hybrid/. dist/
       - run: cp dist/index.html dist/404.html
       - uses: actions/upload-pages-artifact@v3
         with:
